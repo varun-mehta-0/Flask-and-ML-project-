@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block base %}
+  
+<?php
+session_start();
+?>
+<style>
+  .btnContactSubmit {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    color: #fff;
+    background-color: #0062cc;
+    border: none;
+    cursor: pointer;
+    margin-right: 6%;
+    background-color: white;
+    color: blue;
+    margin-top: 4%;
+  }
+  
+  .register .nav-tabs .nav-link:hover {
+    border: none;
+  }
+  
+  .text-align {
+    margin-top: -3%;
+    margin-bottom: -9%;
+    
+    padding: 10%;
+    margin-left: 30%;
+  }
+  
+  .form-new {
+    margin-right: 22%;
+    margin-left: 20%;
+  }
+  
+  .register-heading {
+    margin-left: 21%;
+    margin-bottom: 10%;
+    color: #e9ecef;
+  }
+  
+  .register-heading h1 {
+    margin-left: 21%;
+    margin-bottom: 10%;
+    color: #e9ecef;
+  }
+  
+  .btnLoginSubmit {
+    border: none;
+    padding: 2%;
+    width: 25%;
+    cursor: pointer;
+    background: #29abe2;
+    color: #fff;
+  }
+  
+  .btnForgetPwd {
+    cursor: pointer;
+    margin-right: 5%;
+    color: #f8f9fa;
+  }
+  
+  .register {
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    margin-top: 3%;
+    padding: 3%;
+    border-radius: 2.5rem;
+  }
+  
+  .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: white;
+  }
+  .table101 {
+    margin-left: -100;
+  }
+  </style>
+
+<div class="container register">
+  
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="/" role="tab" aria-controls="home"
+          aria-selected="true">Customer Table</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active text-align form-new" id="home" role="tabpanel"
+        aria-labelledby="home-tab">
+        <h3 class="register-heading">Customer Details</h3>
+        <div class="row register-form">
+          <div class="col-md-12">
+            {% if get_all_customer|length == 0 %}
+            <h1 style="text-align: center; color: white;">No records found</h1>
+            <a href="/" class="btn btn-primary  d-flex justify-content-center">HOME</a>
+            {% else %}
+            
+            {% for customer in get_all_customer %}
+            <table class="table table-dark table101">
+              <thead>
+                <tr>
+                  <th scope="col">Sr No.</th>
+                  <th scope="col">Customer ID</th>
+                  <th scope="col">Customer Name</th>
+                  <th scope="col">Water Pumps</th>
+                  <th scope="col">Water Pumps ID</th>
+                  <th scope="col">Customer Added</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{loop.index}}</td>
+                  <td>{{ customer.customer_id }}</td>
+                  <td>{{ customer.customer_name}}</td>
+                  <td>{{ customer.water_pumps}}</td>
+                  <td>{{ customer.water_pumps_id}}</td>
+                  <td>{{ customer.date_created }}</td>
+                  <td>
+                    <a href="/" class="btn btn-primary" style="border-radius:10px;">DashBoard</a><br>
+                    <a href="/update_customer/{{ customer.srno }}" class="btn btn-warning" style="border-radius:10px;margin-top: 10px;">Update</a><br>
+                    <a href="/delete_customer/{{ customer.srno }}" class="btn btn-danger" style="border-radius: 10px; margin-top: 10px;" >Delete</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock base %}
